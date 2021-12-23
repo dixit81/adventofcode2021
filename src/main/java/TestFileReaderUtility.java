@@ -7,9 +7,14 @@ import java.util.stream.Collectors;
 
 public class TestFileReaderUtility {
 
-    public List<String> readFile(final String file) throws IOException {
+    private List<String> readFile(final String file) throws IOException {
         final BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/testfiles/" + file)));
         return reader.lines().collect(Collectors.toList());
+    }
+
+    public List<String> fetchData(final String file) throws IOException {
+        final TestFileReaderUtility testFileReaderUtility = new TestFileReaderUtility();
+        return testFileReaderUtility.readFile(file);
     }
 
 }
