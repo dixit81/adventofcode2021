@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -13,9 +14,9 @@ public class Day3 {
         final StringBuilder gammaRate = new StringBuilder();
         final StringBuilder epsilonRate = new StringBuilder();
 
-        for(int k=0; k<input.get(0).length(); k++) {
-            for(int l=0; l<grid.length; l++) {
-                if(grid[l][k] == 0) {
+        for (int k = 0; k < input.get(0).length(); k++) {
+            for (int l = 0; l < grid.length; l++) {
+                if (grid[l][k] == 0) {
                     countZeros++;
                 } else {
                     countOnes++;
@@ -55,7 +56,66 @@ public class Day3 {
 
     public static void main(final String[] args) throws IOException {
         final Day3 day3 = new Day3();
-        System.out.println("Result is " + day3.part1(new TestFileReaderUtility().fetchData("day3.txt")));
+        System.out.println("Result is " + day3.part2(new TestFileReaderUtility().fetchData("day3.txt"), 0));
+    }
+
+    public int part2(final List<String> input, int index) {
+
+        final String oxygenRateInBits = part2OxygenHelper(input, index);
+        final String carbonDioxideRateInBits = part2CarbonDioxideHelper(input, index);
+
+        final Integer oxygenDecimalValue = Integer.valueOf(oxygenRateInBits, 2);
+        final Integer carbonDioxideDecimalValue = Integer.valueOf(carbonDioxideRateInBits, 2);
+
+        return oxygenDecimalValue * carbonDioxideDecimalValue;
+    }
+
+    private String part2OxygenHelper(List<String> input, int index) {
+        final List<String> zeroList = new ArrayList<>();
+        final List<String> oneList = new ArrayList<>();
+
+        while (input.size() > 1) {
+            for (int i = 0; i < input.size(); i++) {
+
+                if (input.get(i).charAt(index) - '0' == 0) {
+                    zeroList.add(input.get(i));
+                } else {
+                    oneList.add(input.get(i));
+                }
+            }
+
+            if (zeroList.size() > oneList.size()) {
+                return part2OxygenHelper(zeroList, index + 1);
+            } else {
+                return part2OxygenHelper(oneList, index + 1);
+            }
+        }
+
+        return input.get(0);
+    }
+
+    private String part2CarbonDioxideHelper(List<String> input, int index) {
+        final List<String> zeroList = new ArrayList<>();
+        final List<String> oneList = new ArrayList<>();
+
+        while (input.size() > 1) {
+            for (int i = 0; i < input.size(); i++) {
+
+                if (input.get(i).charAt(index) - '0' == 0) {
+                    zeroList.add(input.get(i));
+                } else {
+                    oneList.add(input.get(i));
+                }
+            }
+
+            if (zeroList.size() > oneList.size()) {
+                return part2CarbonDioxideHelper(oneList, index + 1);
+            } else {
+                return part2CarbonDioxideHelper(zeroList, index + 1);
+            }
+        }
+
+        return input.get(0);
     }
 }
 
