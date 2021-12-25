@@ -59,7 +59,7 @@ public class Day3 {
         System.out.println("Result is " + day3.part2(new TestFileReaderUtility().fetchData("day3.txt"), 0));
     }
 
-    public int part2(final List<String> input, int index) {
+    public int part2(final List<String> input, final int index) {
 
         final String oxygenRateInBits = part2OxygenHelper(input, index);
         final String carbonDioxideRateInBits = part2CarbonDioxideHelper(input, index);
@@ -70,7 +70,7 @@ public class Day3 {
         return oxygenDecimalValue * carbonDioxideDecimalValue;
     }
 
-    private String part2OxygenHelper(List<String> input, int index) {
+    private String part2OxygenHelper(final List<String> input, final int index) {
         final List<String> zeroList = new ArrayList<>();
         final List<String> oneList = new ArrayList<>();
 
@@ -94,7 +94,7 @@ public class Day3 {
         return input.get(0);
     }
 
-    private String part2CarbonDioxideHelper(List<String> input, int index) {
+    private String part2CarbonDioxideHelper(final List<String> input, final int index) {
         final List<String> zeroList = new ArrayList<>();
         final List<String> oneList = new ArrayList<>();
 
